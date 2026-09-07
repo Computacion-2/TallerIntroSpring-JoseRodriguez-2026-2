@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+           http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- =================================================================== -->
+    <!-- 1. CAPA DE REPOSITORIOS (Persistencia en Memoria)                  -->
+    <!-- =================================================================== -->
+    <bean id="artistRepository" class="com.example.repository.impl.ArtistRepositoryImpl" />
+    <bean id="trackRepository" class="com.example.repository.impl.TrackRepositoryImpl" />
+
+    <!-- =================================================================== -->
+    <!-- 2. CAPA DE SERVICIOS (Inyección de Repositorios)                    -->
+    <!-- =================================================================== -->
+    <bean id="artistService" class="com.example.service.impl.ArtistServiceImpl">
+        <property name="artistRepository" ref="artistRepository" />
+    </bean>
+
+    <bean id="trackService" class="com.example.service.impl.TrackServiceImpl">
+        <property name="trackRepository" ref="trackRepository" />
+        <property name="artistRepository" ref="artistRepository" />
+    </bean>
+
+    <!-- =================================================================== -->
+    <!-- 3. INICIALIZADOR DE DATOS                                          -->
+    <!-- Se ejecuta 'init()' automáticamente al cargar el ApplicationContext -->
+    <!-- =================================================================== -->
+    <bean id="dataInitializer" class="com.example.config.DataInitializer" init-method="init">
+        <property name="artistService" ref="artistService" />
+        <property name="trackService" ref="trackService" />
+    </bean>
+
+</beans>

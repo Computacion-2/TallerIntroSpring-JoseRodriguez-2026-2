@@ -1,0 +1,23 @@
+# Logs
+logs/
+.logs/
+*.log
+
+# AI, Agents & Skills
+.agents/
+.gemini/
+.brain/
+.ai/
+skills/
+
+# Maven & Build output
+target/
+*.class
+
+# IDE & Tooling
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+.vscode/
